@@ -35,7 +35,7 @@ function displayWorks(works) {
     const bWorks = document.createDocumentFragment();
 
     for (const project of works) {
-        const figure = document.createElement('figure');
+        const figure = document.createElement('figure');git 
 
         const img = document.createElement('img');
         img.src = project.imageUrl;
@@ -95,3 +95,5 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('coucou')
     fetchCategories();
 });
+
+// préparation pour les étapes 2.1 et 2.2
