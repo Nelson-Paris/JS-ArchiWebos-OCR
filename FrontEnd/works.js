@@ -10,12 +10,11 @@ async function fetchWorks() {
     await fetch('http://localhost:5678/api/works')
         .then(response => response.json())
         .then(data => {
-            console.log('1')
-
+            
             allWorks = data;
             displayWorks(allWorks); //  tous les projets
         });
-    console.log('1')
+    console.log('récupéraion des projets')
 }
 
 // Fonction pour récupérer les catégories depuis le backend
@@ -35,7 +34,7 @@ function displayWorks(works) {
     const bWorks = document.createDocumentFragment();
 
     for (const project of works) {
-        const figure = document.createElement('figure');git 
+        const figure = document.createElement('figure');
 
         const img = document.createElement('img');
         img.src = project.imageUrl;
@@ -51,9 +50,6 @@ function displayWorks(works) {
 
     gallery.appendChild(bWorks); // Une seule opération DOM
 }
-
-
-
 
 
 // Création des boutons de filtres dynamiquement
@@ -92,8 +88,6 @@ function setActiveButton(activeBtn) {
 // attends que le dom soit chargé
 document.addEventListener('DOMContentLoaded', () => {
     fetchWorks();
-    console.log('coucou')
+    console.log('le dom est chargé')
     fetchCategories();
 });
-
-// préparation pour les étapes 2.1 et 2.2

@@ -88,7 +88,7 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
+	cursor: pointer;
 }
 nav li {
 	padding: 0 10px;
@@ -210,4 +210,43 @@ footer nav ul {
 .filter-buttons button.active {
     background-color: #1D6154;
     color: white;
+}
+
+/** page login test  **/ 
+
+.h2-login{
+  margin-bottom: 20px;
+}
+
+.login-page main {
+  max-width: 400px;
+  margin: 200px auto;
+  text-align: center;
+}
+
+.login-page input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.login-page button {
+  background-color: #1D6154;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.login-page button:hover {
+  background-color: #144d43;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
 }
