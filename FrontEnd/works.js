@@ -1,37 +1,27 @@
-// Selection de la gallery dans le DOM
-const gallery = document.querySelector('.gallery'); 
+// ---------- 0. déclare les variables ----------
+const serverAPI = 'http://localhost:5678'; // URL de l'API
+
+const gallery = document.querySelector('.gallery');
 const filterContainer = document.querySelector('.filter-buttons');
+const modal = document.getElementById("modal");
+const modalGallery = document.querySelector(".modal-gallery");
+const closeModalBtn = document.querySelector(".close-btn");
+const openModalBtn = document.getElementById("openModal");
 
-let allWorks = [];
-let categories = [];
-
-// Fonction pour récupérer les projets depuis le backend
-async function fetchWorks() {
-    await fetch('http://localhost:5678/api/works')
-        .then(response => response.json())
-        .then(data => {
-            
-            allWorks = data;
-            displayWorks(allWorks); //  tous les projets
-        });
-    console.log('récupéraion des projets')
+// ---------- 1. récupére et affiche les projets ----------
+function fetchWorksAndCategories() {
+    Promise.all([
+        fetch(`${serverAPI}/api/works`).then(res => res.json()),
+        fetch(`${serverAPI}/api/categories`).then(res => res.json())
+    ]).then(([works, categories]) => {
+        displayWorks(works);
+        createFilterButtons(categories, works);
+    });
 }
 
-// Fonction pour récupérer les catégories depuis le backend
-function fetchCategories() {
-    fetch('http://localhost:5678/api/categories')
-        .then(response => response.json())
-        .then(data => {
-            categories = data;
-            createFilterButtons(categories); //  boutons filtres
-        });
-}
-
-// Affiche dynamiquement les projets dans la galerie à modifier
 function displayWorks(works) {
-    gallery.innerHTML = ""; // Vide la galerie
-
-    const bWorks = document.createDocumentFragment();
+    gallery.innerHTML = "";
+    const fragment = document.createDocumentFragment();
 
     for (const project of works) {
         const figure = document.createElement('figure');
@@ -45,16 +35,15 @@ function displayWorks(works) {
 
         figure.appendChild(img);
         figure.appendChild(figcaption);
-        bWorks.appendChild(figure);
+        fragment.appendChild(figure);
     }
 
-    gallery.appendChild(bWorks); // Une seule opération DOM
+    gallery.appendChild(fragment);
 }
 
-
-// Création des boutons de filtres dynamiquement
-function createFilterButtons(categories) {
-    //  bouton "Tous"
+// ---------- 2. boutons de filtre ----------
+function createFilterButtons(categories, allWorks) {
+    filterContainer.innerHTML = "";
     const allBtn = document.createElement('button');
     allBtn.textContent = 'Tous';
     allBtn.classList.add('active');
@@ -64,7 +53,6 @@ function createFilterButtons(categories) {
     });
     filterContainer.appendChild(allBtn);
 
-    //  chaque catégorie
     categories.forEach(category => {
         const btn = document.createElement('button');
         btn.textContent = category.name;
@@ -77,7 +65,6 @@ function createFilterButtons(categories) {
     });
 }
 
-// change le style quand il est actif
 function setActiveButton(activeBtn) {
     document.querySelectorAll('.filter-buttons button').forEach(btn =>
         btn.classList.remove('active')
@@ -85,9 +72,50 @@ function setActiveButton(activeBtn) {
     activeBtn.classList.add('active');
 }
 
-// attends que le dom soit chargé
+// ---------- 3. affiche de la modale ----------
+
+function openModalWorks(works) {
+    modalGallery.innerHTML = "";
+    works.forEach(work => {
+        const container = document.createElement("div");
+        container.classList.add("modal-item");
+
+        const img = document.createElement("img");
+        img.src = work.imageUrl;
+        img.alt = work.title;
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+        deleteBtn.classList.add("delete-button");
+        deleteBtn.addEventListener("click", () => deleteWork(work.id, container));
+
+        container.appendChild(img);
+        container.appendChild(deleteBtn);
+        modalGallery.appendChild(container);
+    });
+
+    modal.classList.remove("hidden");
+}
+// ---------- 5. événements du DOM ----------
+openModalBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    fetch(`${serverAPI}/api/works`)
+        .then(res => res.json())
+        .then(data => {
+            openModalWorks(data);
+        });
+});
+
 document.addEventListener('DOMContentLoaded', () => {
-    fetchWorks();
-    console.log('le dom est chargé')
-    fetchCategories();
+    fetchWorksAndCategories();
+});
+
+closeModalBtn.addEventListener("click", () => {
+    modal.classList.add("hidden");
+});
+
+modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+        modal.classList.add("hidden");
+    }
 });
