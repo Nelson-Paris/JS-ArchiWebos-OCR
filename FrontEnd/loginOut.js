@@ -5,13 +5,13 @@ const token = localStorage.getItem("token");
 document.addEventListener('DOMContentLoaded', () => {
 
   if (loginOut) {
-    const loginLink = loginOut.querySelector("a");
+    const logoutLink = loginOut.querySelector("a");
 
-    if (token && loginLink) {
-      loginLink.textContent = "logout";
-      loginLink.href = "#";
+    if (token && logoutLink) {
+      logoutLink.textContent = "logout";
+      logoutLink.href = "#";
 
-      loginLink.addEventListener("click", function (e) {
+      logoutLink.addEventListener("click", function (e) {
         e.preventDefault();
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
