@@ -5,31 +5,45 @@
 	<meta charset="UTF-8">
 	<title>Sophie Bluel - Architecte d'intérieur</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+
+	<!-- Fonts & Icons -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-	<meta name="description" content="">
+
+	<!-- Stylesheet -->
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 
 <body>
+	<!-- Edition Banner -->
+	<div class="edition-banner open-modal-btn edition-ui">
+		<i class="fa-regular fa-pen-to-square"></i>
+		<span>Mode édition</span>
+	</div>
+
+	<!-- Header -->
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
 			<ul>
-				<li><a href="#" id="openModal">projets</a></li>
-				<li>contact</li>
+				<li><a href="#portfolio">projets</a></li>
+				<li><a href="#contact">contact</a></li>
 				<li id="loginOut"><a href="login.html">login</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
 	</header>
+
+	<!-- Main Content -->
 	<main>
+		<!-- Introduction Section -->
 		<section id="introduction">
 			<figure>
-				<img src="./assets/images/sophie-bluel.png" alt="">
+				<img src="./assets/images/sophie-bluel.png" alt="Portrait de Sophie Bluel">
 			</figure>
 			<article>
 				<h2>Designer d'espace</h2>
@@ -42,40 +56,48 @@
 					décorateur(trice)</p>
 			</article>
 		</section>
-		<section id="portfolio">
-			<h2>Mes Projets</h2>
-			<div class="filters">
-				<div class="filter-buttons">
-			
-				</div>
-			</div>
 
-			<div class="gallery">
-			
+		<!-- Portfolio Section -->
+		<section id="portfolio">
+			<div class="edit-title-wrapper">
+				<h2>Mes Projets</h2>
+				<button class="edit-link open-modal-btn edition-ui">
+					<i class="fa-regular fa-pen-to-square"></i> modifier
+				</button>
 			</div>
+			<div class="filters">
+				<div class="filter-buttons"></div>
+			</div>
+			<div class="gallery"></div>
 		</section>
+
+		<!-- Contact Section -->
 		<section id="contact">
 			<h2>Contact</h2>
 			<p>Vous avez un projet ? Discutons-en !</p>
 			<form action="#" method="post">
 				<label for="name">Nom</label>
 				<input type="text" name="name" id="name">
+
 				<label for="email">Email</label>
 				<input type="email" name="email" id="email">
+
 				<label for="message">Message</label>
 				<textarea name="message" id="message" cols="30" rows="10"></textarea>
+
 				<input type="submit" value="Envoyer">
 			</form>
 		</section>
 	</main>
 
-
+	<!-- Modal Gallery Photo -->
 	<div id="modal" class="modal hidden">
 		<div class="modal-content">
-			<span class="close-btn">x</span>
+			<div class="modal-header">
+				<i class="fa-solid fa-xmark close-btn"></i>
+			</div>
 			<h3 class="modalTitle">Galerie photo</h3>
 			<div class="modal-gallery"></div>
-
 			<div class="modal-separator"></div>
 			<div class="modal-footer">
 				<button class="addPhotoBtn add-photo-btn">Ajouter une photo</button>
@@ -83,13 +105,45 @@
 		</div>
 	</div>
 
+	<!-- Modal Add photo -->
+	<div id="modal-add-photo" class="modal hidden">
+		<div class="modal-wrapper add-photo-modal">
+			<div class="add-photo-header">
+				<i class="fa-solid fa-arrow-left" id="backToGallery"></i>
+				<h3>Ajout photo</h3>
+				<i class="fa-solid fa-xmark" id="closeAddPhotoModal"></i>
+			</div>
+			<form id="add-photo-form" class="add-photo-form">
+				<div class="image-upload-zone">
+					<i class="fa-regular fa-image"></i>
+					<button type="button" id="customFileTrigger">+ Ajouter photo</button>
+					<span>jpg, png : 4mo max</span>
+					<input type="file" id="image" name="image" accept="image/png, image/jpeg" hidden required>
+					<div id="imagePreview" class="image-preview hidden"></div>
+				</div>
+				<div id="fileSizeError" class="form-error hidden">Le fichier dépasse 4 Mo.</div>
+				<label for="title">Titre</label>
+				<input type="text" id="title" name="title" required>
+
+				<label for="category">Catégorie</label>
+				<select id="category" name="category" required></select>
+
+				<hr>
+				<button type="submit" disabled>Valider</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- Footer -->
 	<footer>
 		<nav>
 			<ul>
-				<li>Mentions Légales</li>
+				<li><a href="#">Mentions Légales</a></li>
 			</ul>
 		</nav>
 	</footer>
+
+	<!-- Scripts -->
 	<script src="works.js"></script>
 	<script src="loginOut.js"></script>
 </body>

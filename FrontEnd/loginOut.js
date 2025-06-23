@@ -1,8 +1,6 @@
-
-const loginOut = document.getElementById("loginOut");
-const token = localStorage.getItem("token");
-
 document.addEventListener('DOMContentLoaded', () => {
+  const loginOut = document.getElementById("loginOut");
+  const token = localStorage.getItem("token");
 
   if (loginOut) {
     const logoutLink = loginOut.querySelector("a");
@@ -19,5 +17,4 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   }
-
 });
